@@ -1,14 +1,14 @@
-﻿
 ### pshazz
 try { $null = gcm pshazz -ea stop; pshazz init 'default' } catch { }
 
-### Variables
-$srcHabitica = (Get-Command habitica).Source
+### posh-git
+Import-Module posh-git
+
+$GitPromptSettings.DefaultPromptPath.ForegroundColor = 0xFFA500
+$GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
+$GitPromptSettings.DefaultPromptWriteStatusFirst = $true
 
 ### Functions
-function habiticaCli(){
-    python $srcHabitica $args
-}
 
 function hgPushAndPr(){
     $line = (hg push | where { $_ -like "*https://*" })
@@ -23,7 +23,6 @@ function hgPushAndPr(){
 
 ### Aliases
 New-Alias which Get-Command
-New-Alias habitica habiticaCli
 
-# Remove powershell alias
+### Remove powershell alias
 remove-item alias:curl
